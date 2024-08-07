@@ -1,31 +1,37 @@
-import { StyleSheet } from 'react-native';
+import React from 'react';
+import { View, Text, Button, StyleSheet } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { NativeStackNavigationProp } from '@react-navigation/native-stack';
 
-import EditScreenInfo from '@/components/EditScreenInfo';
-import { Text, View } from '@/components/Themed';
+type RootStackParamList = {
+  index: undefined;
+  two: undefined;
+};
 
-export default function TabOneScreen() {
+type NavigationProp = NativeStackNavigationProp<RootStackParamList, 'index'>;
+
+const WelcomeScreen = () => {
+  const navigation = useNavigation<NavigationProp>();
+
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Alarm App</Text>
-      <View style={styles.separator} lightColor="#eee" darkColor="rgba(255,255,255,0.1)" />
-      <EditScreenInfo path="app/(tabs)/index.tsx" />
+      <Text style={styles.title}>Welcome to Brushing Alarm App</Text>
+      <Button title="Get Started" onPress={() => navigation.navigate('two')} />
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
   title: {
-    fontSize: 20,
+    fontSize: 24,
     fontWeight: 'bold',
-  },
-  separator: {
-    marginVertical: 30,
-    height: 1,
-    width: '80%',
+    marginBottom: 20,
   },
 });
+
+export default WelcomeScreen;
